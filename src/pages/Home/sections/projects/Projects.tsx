@@ -1,8 +1,12 @@
 import { styled } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
+import imgCVB from "../../../../assets/images/conventions.png";
+import imgAVIN from "../../../../assets/images/ifpboficial_logo.jpg";
+import Container from "../../../../components/Container/Container";
+import FadeInSection from "../../../../components/FadeInSection/FadeInSection";
 
 const Section = styled("section")({
-  background: "#090909",
+  background: "transparent",
   padding: "80px 40px",
   borderTop: "1px solid rgba(255,255,255,0.06)",
 });
@@ -13,6 +17,7 @@ const SectionLabel = styled(Typography)({
   textTransform: "uppercase",
   color: "rgba(255,255,255,0.3)",
   marginBottom: "10px",
+  textAlign: "center",
 });
 
 const SectionTitle = styled(Typography)({
@@ -23,6 +28,7 @@ const SectionTitle = styled(Typography)({
   letterSpacing: "-1.5px",
   lineHeight: 1,
   marginBottom: "48px",
+  textAlign: "center",
 });
 
 const ProjGrid = styled(Box)({
@@ -40,13 +46,13 @@ const Card = styled(Box)({
   "&:hover": { borderColor: "rgba(255,255,255,0.2)" },
 });
 
-const Thumb = styled(Box)({
-  height: "140px",
-  background: "rgba(255,255,255,0.05)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+const Thumb = styled("img")({
+  width: "100%",
+  height: "180px",
+  objectFit: "cover",
+  objectPosition: "top",
   borderBottom: "1px solid rgba(255,255,255,0.06)",
+  display: "block",
 });
 
 const ProjTag = styled("span")({
@@ -61,16 +67,16 @@ const projects = [
   {
     id: "avin",
     name: "AVIN CPA",
-    thumbLabel: "AVIN CPA",
+    image: imgAVIN,
     description: "Projeto de pesquisa pelo IFPB. Contribuí no frontend com ajustes e correções no módulo de questionários da plataforma.",
     tags: ["React", "Frontend", "Pesquisa"],
     badge: "IFPB · 6 meses",
-    link: "https://avin-ifpb.web.app",
+    link: "https://www.ifpb.edu.br/cpa/apresentacao",
   },
   {
     id: "cvb",
     name: "CG Convention & Visitors Bureau",
-    thumbLabel: "CVB CG",
+    image: imgCVB,
     description: "Site institucional para o CVB de Campina Grande. Desenvolvido em equipe no projeto integrador do curso Aponti Bolsa Futuro Digital.",
     tags: ["React", "Frontend", "Projeto Integrador"],
     badge: "Aponti · Equipe",
@@ -80,17 +86,17 @@ const projects = [
 
 const Projects = () => (
   <Section id="projects">
-    <SectionLabel>Trabalhos</SectionLabel>
-    <SectionTitle variant="h2">Projects</SectionTitle>
+    <Container>
+      <FadeInSection>
+      <SectionLabel>Trabalhos</SectionLabel>
+      <SectionTitle variant="h2">Projects</SectionTitle>
+      </FadeInSection>
 
     <ProjGrid>
-      {projects.map((p) => (
+      {projects.map((p, i) => (
+        <FadeInSection key={p.id} delay={i * 0.15}>
         <Card key={p.id}>
-          <Thumb>
-            <Typography sx={{ fontFamily: "'Syne', sans-serif", fontSize: 28, fontWeight: 800, color: "rgba(255,255,255,0.06)", letterSpacing: "-1px" }}>
-              {p.thumbLabel}
-            </Typography>
-          </Thumb>
+            <Thumb src={p.image} alt={p.name} />
           <Box sx={{ padding: "20px" }}>
             <Typography sx={{ fontFamily: "'Syne', sans-serif", fontSize: 16, fontWeight: 700, color: "#f5f5f0", mb: "8px" }}>
               {p.name}
@@ -111,8 +117,10 @@ const Projects = () => (
             </Box>
           </Box>
         </Card>
+        </FadeInSection>
       ))}
     </ProjGrid>
+    </Container>
   </Section>
 );
 

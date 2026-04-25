@@ -1,9 +1,11 @@
 import { styled, keyframes } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
-import EmailIcon from "@mui/icons-material/Email";
 import StyledButton from "../../../../components/StyledButton/StyledButton";
-import Perfil from "../../../../assets/images/perfil.jpeg";
+import Avatar from "../../../../assets/images/avatar.jpeg";
+import useTypewriter from "../../../../hooks/useTypewriter";
+import CV from "../../../../assets/cv/curriculo.pdf";
+
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(16px); }
@@ -11,7 +13,7 @@ const fadeUp = keyframes`
 `;
 
 const HeroWrapper = styled("section")({
-  background: "#090909",
+  background: "transparent",
   minHeight: "100vh",
   display: "flex",
   alignItems: "center",
@@ -72,24 +74,36 @@ const Buttons = styled(Box)({
   animation: `${fadeUp} 0.7s ease 0.35s both`,
 });
 
-const Hero = () => (
-  <HeroWrapper>
-    <Photo src={Perfil} alt="Andrey Claudino" />
-    <Content>
-      <Name variant="h1">Andrey Claudino</Name>
-      <Role variant="subtitle1">Developer Full Stack</Role>
-      <Buttons>
-        <StyledButton variant="primary" onClick={() => {}}>
-          <DownloadIcon sx={{ fontSize: 16 }} />
-          Download CV
-        </StyledButton>
-        <StyledButton variant="outline" onClick={() => {}}>
-          <EmailIcon sx={{ fontSize: 16 }} />
-          Contact Me
-        </StyledButton>
-      </Buttons>
-    </Content>
-  </HeroWrapper>
-);
+const Hero = () => {
+  const { displayed, done } = useTypewriter("Developer Front End", 70, 600);
+
+  return (
+    <HeroWrapper>
+      <Photo src={Avatar} alt="Andrey Claudino" />
+      <Content>
+        <Name variant="h1">Andrey Claudino</Name>
+        <Role variant="subtitle1">
+          {displayed}
+          <span style={{
+            display: "inline-block",
+            width: "2px",
+            height: "1em",
+            background: "#f5f5f0",
+            marginLeft: "3px",
+            verticalAlign: "middle",
+            animation: done ? "none" : "blink 0.7s step-end infinite",
+          }} />
+        </Role>
+        <Buttons>
+          <a href={CV} download="Andrey_Claudino_CV.pdf" style={{ textDecoration: "none" }}>
+            <StyledButton variant="primary">
+              <DownloadIcon sx={{ fontSize: 16 }} /> Download CV
+            </StyledButton>
+          </a>
+        </Buttons>
+      </Content>
+    </HeroWrapper>
+  );
+};
 
 export default Hero;

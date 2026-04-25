@@ -1,17 +1,15 @@
-import Hero from "./sections/hero/Hero.tsx"
-import About from "./sections/about/About.tsx"
-import Projects from "./sections/projects/Projects.tsx"
+import Hero from "./sections/hero/Hero";
+import About from "./sections/About/About";
+import Projects from "./sections/projects/Projects";
+import Contact from "./sections/contact/Contact";
 
+const Home = () => (
+  <>
+    <Hero />
+    <About />
+    <Projects />
+    <Contact />
+  </>
+);
 
-const Home = () => {
-
-  return (
-    <>
-      <Hero/>
-      <About/>
-      <Projects/>
-    </>
-  )
-}
-
-export default Home
+export default Home;

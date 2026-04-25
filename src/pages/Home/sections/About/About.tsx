@@ -1,5 +1,7 @@
 import { styled, keyframes } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
+import Container from "../../../../components/Container/Container";
+import FadeInSection from "../../../../components/FadeInSection/FadeInSection";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(16px); }
@@ -7,7 +9,7 @@ const fadeUp = keyframes`
 `;
 
 const Section = styled("section")({
-  background: "#090909",
+  background: "transparent",
   padding: "80px 40px",
 });
 
@@ -17,6 +19,7 @@ const SectionLabel = styled(Typography)({
   textTransform: "uppercase",
   color: "rgba(255,255,255,0.3)",
   marginBottom: "10px",
+  textAlign: "center",
 });
 
 const SectionTitle = styled(Typography)({
@@ -28,6 +31,7 @@ const SectionTitle = styled(Typography)({
   lineHeight: 1,
   marginBottom: "48px",
   animation: `${fadeUp} 0.7s ease both`,
+  textAlign: "center",
 });
 
 const Grid = styled(Box)({
@@ -76,66 +80,76 @@ const Tag = styled("span")({
 });
 
 const skillGroups = [
-  { label: "Front End", skills: ["HTML", "CSS", "JavaScript", "React"] },
+  { label: "Front End", skills: ["HTML", "CSS", "JavaScript", "React", "TypeScript"] },
   { label: "Back End", skills: ["Python", "Java", "JavaScript", "Spring Boot"] },
+  { label: "Práticas", skills: ["Tailwind CSS", "UI/UX Design", "GitHub", "Trello"] },
 ];
 
 const About = () => (
   <Section id="about">
-    <SectionLabel>Sobre mim</SectionLabel>
-    <SectionTitle variant="h2">About</SectionTitle>
+    <Container>
+      <FadeInSection>
+        <SectionLabel>Sobre mim</SectionLabel>
+        <SectionTitle variant="h2">About</SectionTitle>
+      </FadeInSection>
 
-    <Grid>
-      <Box>
-        <Box sx={{ display: "flex", gap: "40px", mb: 4 }}>
-          <StatBlock>
-            <StatNumber>3</StatNumber>
-            <StatLabel>Anos estudando</StatLabel>
-          </StatBlock>
-          <StatBlock>
-            <StatNumber>6m</StatNumber>
-            <StatLabel>Experiência</StatLabel>
-          </StatBlock>
-        </Box>
-
-        <EduCard>
-          <Typography sx={{ fontSize: 14, color: "#f5f5f0", mb: "4px" }}>
-            Análise e Desenvolvimento de Sistemas
-          </Typography>
-          <Typography sx={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
-            UEPB — Cursando
-          </Typography>
-          <Typography sx={{ fontSize: 11, color: "rgba(255,255,255,0.25)", mt: "6px" }}>
-            2026 → presente
-          </Typography>
-        </EduCard>
-
-        <EduCard>
-          <Typography sx={{ fontSize: 14, color: "#f5f5f0", mb: "4px" }}>
-            Técnico em Informática
-          </Typography>
-          <Typography sx={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
-            IFPB — Concluído
-          </Typography>
-          <Typography sx={{ fontSize: 11, color: "rgba(255,255,255,0.25)", mt: "6px" }}>
-            2025
-          </Typography>
-        </EduCard>
-      </Box>
-
-      <Box>
-        {skillGroups.map((group) => (
-          <Box key={group.label} sx={{ mb: 3 }}>
-            <Typography sx={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.3)", mb: "12px" }}>
-              {group.label}
-            </Typography>
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-              {group.skills.map((s) => <Tag key={s}>{s}</Tag>)}
+      <Grid>
+        <FadeInSection delay={0.1} direction="left">
+          <Box>
+            <Box sx={{ display: "flex", gap: "40px", mb: 4 }}>
+              <StatBlock>
+                <StatNumber>3</StatNumber>
+                <StatLabel>Anos estudando</StatLabel>
+              </StatBlock>
+              <StatBlock>
+                <StatNumber>1</StatNumber>
+                <StatLabel>Ano e 6 meses de experiência</StatLabel>
+              </StatBlock>
             </Box>
+            <EduCard>
+              <Typography sx={{ fontSize: 14, color: "#f5f5f0", mb: "4px" }}>
+                Análise e Desenvolvimento de Sistemas
+              </Typography>
+              <Typography sx={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                UEPB — Cursando
+              </Typography>
+              <Typography sx={{ fontSize: 11, color: "rgba(255,255,255,0.25)", mt: "6px" }}>
+                2026 → presente
+              </Typography>
+            </EduCard>
+
+            <EduCard>
+              <Typography sx={{ fontSize: 14, color: "#f5f5f0", mb: "4px" }}>
+                Técnico em Informática
+              </Typography>
+              <Typography sx={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                IFPB — Concluído
+              </Typography>
+              <Typography sx={{ fontSize: 11, color: "rgba(255,255,255,0.25)", mt: "6px" }}>
+                2024 → 2025
+              </Typography>
+            </EduCard>
           </Box>
-        ))}
-      </Box>
-    </Grid>
+        </FadeInSection>
+
+        <FadeInSection delay={0.2} direction="right">
+          <Box>
+            {skillGroups.map((group) => (
+              <Box key={group.label} sx={{ mb: 4 }}>
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                  {group.label}
+                </Typography>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+                  {group.skills.map((skill) => (
+                    <Tag key={skill}>{skill}</Tag>
+                  ))}
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        </FadeInSection>
+      </Grid>
+    </Container>
   </Section>
 );
 
