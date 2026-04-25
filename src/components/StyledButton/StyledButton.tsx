@@ -1,37 +1,58 @@
-import React, { type ReactNode } from "react";
+import React from "react";
 import { styled } from "@mui/material";
 
+type Variant = "primary" | "outline";
+
 interface StyledButtonProps {
-    children: ReactNode;
-    onClick?: () => void;
+  children: React.ReactNode;
+  onClick?: () => void;
+  variant?: Variant;
+  href?: string;
 }
 
-const StyledButton: React.FC<StyledButtonProps> = ({ children, onClick }) => {
+const BaseButton = styled("button")<{ ownerState: { variant: Variant } }>(
+  ({ theme, ownerState }) => ({
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "8px",
+    padding: "11px 22px",
+    fontFamily: theme.typography.fontFamily,
+    fontSize: "13px",
+    fontWeight: 400,
+    letterSpacing: "0.5px",
+    borderRadius: "4px",
+    cursor: "pointer",
+    transition: "all 0.2s ease",
+    textDecoration: "none",
+    ...(ownerState.variant === "primary" && {
+      background: "#f5f5f0",
+      color: "#090909",
+      border: "1px solid #f5f5f0",
+      "&:hover": {
+        background: "transparent",
+        color: "#f5f5f0",
+      },
+    }),
+    ...(ownerState.variant === "outline" && {
+      background: "transparent",
+      color: "rgba(255,255,255,0.7)",
+      border: "1px solid rgba(255,255,255,0.2)",
+      "&:hover": {
+        borderColor: "rgba(255,255,255,0.6)",
+        color: "#f5f5f0",
+      },
+    }),
+  })
+);
 
-    const StyledButton = styled("button")(({ theme }) => ({
-        backgroundColor: "transparent",
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        verticalAlign: "middle",
-        gap: "10px",
-        borderRadius: "3px",
-        padding: "5px 15px",
-        width: "100%",
-        border: `1px solid  ${theme.palette.primary.contrastText}`,
-        color: theme.palette.primary.contrastText,
-        cursor: "pointer",
-        transition: "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light,
-        }
-    }));
+const StyledButton: React.FC<StyledButtonProps> = ({
+  children,
+  onClick,
+  variant = "outline",
+}) => (
+  <BaseButton ownerState={{ variant }} onClick={onClick}>
+    {children}
+  </BaseButton>
+);
 
-    return (
-        <>
-            <StyledButton onClick={onClick}>{children}</StyledButton>
-        </>
-    )
-}
-
-export default StyledButton
+export default StyledButton;
